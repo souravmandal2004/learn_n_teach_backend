@@ -11,11 +11,11 @@ const tagSchema = new mongoose.Schema ({
         type: String,    
     },
 
-    course: {
+    course: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Course',
         required: true,
-    }, 
+    }], 
 });
 
 mondule.exports = mongoose.model ("Tag", tagSchema);
