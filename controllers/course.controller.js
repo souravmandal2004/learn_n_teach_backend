@@ -3,7 +3,7 @@ const Section = require ("../models/section.model.js");
 const SubSection = require ("../models/subSection.model.js");
 const CourseProgress = require ("../models/courseProgress.model.js");
 const User = require ("../models/user.model.js");
-const Tag = require ("../models/tag.model.js");
+const Category = require ("../models/category.model.js");
 const {uploadImageToCloudinary} = require ("../utils/imageUploader.js"); 
 require ("dotenv").config ();   
 
@@ -21,7 +21,7 @@ exports.createCourse = async (req, res) => {
             courseDescription,
             whatYouWillLearn,
             price,
-            tag,
+            category,
         } = req.body;
 
         // fetch the thumbnail
@@ -32,7 +32,7 @@ exports.createCourse = async (req, res) => {
             !courseDescription ||
             !whatYouWillLearn ||
             !price ||
-            !tag ||
+            !category ||
             !thumbnail ){
                 return res.status (400). json ({
                     success: false,
@@ -51,13 +51,13 @@ exports.createCourse = async (req, res) => {
             });
         }
 
-        // check given tag is valid or not
-        const tagDetails = await Tag.findById ({tag});
+        // check given category is valid or not
+        const categoryDetails = await Category.findById ({category});
 
-        if (!tagDetails) {
+        if (!categoryDetails) {
             return res.status (403).json ({
                 success: false,
-                message: "Tag Details not found."
+                message: "Category Details not found."
             });
         }
 
@@ -76,9 +76,9 @@ exports.createCourse = async (req, res) => {
             {new: true},
         );
 
-        // update the tag schema
-        await Tag.findByIdAndUpdate (
-            {_id: tagDetails._id},
+        // update the category schema
+        await Category.findByIdAndUpdate (
+            {_id: categoryDetails._id},
             {$push: 
                 {course: newCourse._id,}
             },

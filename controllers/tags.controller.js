@@ -1,6 +1,6 @@
-const Tag = require ("../models/tag.model.js");
+const Category = require ("../models/category.model.js");
 
-exports.createTag = async (req, res) => {
+exports.createCategory = async (req, res) => {
     try {
         // fetch the data from request body
         const {name, description} = req.body;
@@ -14,49 +14,49 @@ exports.createTag = async (req, res) => {
         }
 
         // create entry in db
-        const tagDetails = await Tag.create ({
+        const categoryDetails = await Category.create ({
             name: name,
             description: description,
         });
-        console.log (tagDetails);
+        console.log (categoryDetails);
 
         // return response
         return res.status (200).json ({
             success: true,
-            message: "Tag created successfully.",
-            data: tagDetails,
+            message: "Category created successfully.",
+            data: categoryDetails,
         });
     }
     catch (error) {
-        console.log ("Error while creating tag", error.message);
+        console.log ("Error while creating category", error.message);
         return res.status (500).json ({
             success: false,
-            message: "Error while creating tag. Please try again.",
+            message: "Error while creating category. Please try again.",
         });
     }
 }
 
-// get All the tags
-exports.showAllTags = async (req, res) => {
+// get All the category
+exports.showAllCategory = async (req, res) => {
     try {
-        // fetching all the tags
-        const allTags = await Tag.find ({}, {name: true, description: true});
+        // fetching all the category
+        const allCategory = await Category.find ({}, {name: true, description: true});
 
 
         // return the response
         return res.status (200). json ({
             success: true,
-            message: "All tags fetched successfully.",
-            allTags,
+            message: "All category fetched successfully.",
+            allCategory,
         });
     } 
 
     catch (error) {
 
-        console.log ("Error while getting all tags", error.message);
+        console.log ("Error while getting all category", error.message);
         return res.status (500). json ({
             success: false,
-            message: "Error while fetching all tags. Please try again.",
+            message: "Error while fetching all category. Please try again.",
         });
     }
 }
