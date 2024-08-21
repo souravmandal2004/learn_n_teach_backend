@@ -2,6 +2,7 @@ const User = require("../models/user.model.js");
 const mailSender = require("../utils/mailSender.util.js");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
+const crypto = require("crypto");
 
 
 // // resetPasswordToken -> function to send the link to the mail

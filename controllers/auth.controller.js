@@ -291,7 +291,7 @@ exports.signup = async (req, res) => {
             accountType: accountType,
             approved: approved,
             additionalDetails: profileDetails._id,
-            image: "",
+            image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
         })
 
         return res.status(200).json({
@@ -385,8 +385,8 @@ exports.login = async (req, res) => {
     try {
         // Get email and password from request body
         const { email, password } = req.body
-        let myIP = req.header("X-Forwarded-For").split(',')[0];
-        console.log("IP of User", myIP);
+        // let myIP = req.header("X-Forwarded-For").split(',')[0];
+        // console.log("IP of User", myIP);
 
         // Check if email or password is missing
         if (!email || !password) {
@@ -445,6 +445,7 @@ exports.login = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: `Login Failure Please Try Again`,
+            error: error.message,
         })
     }
 }
